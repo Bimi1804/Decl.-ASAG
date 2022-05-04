@@ -1,0 +1,19 @@
+activity constructor
+activity class
+activity explicitly
+activity include
+activity one
+activity default
+activity creates
+activity provided
+activity compiler
+activity c++
+Co-Existence[class, constructor] | | |
+Co-Existence[class, include] | | |
+Co-Existence[explicitly, include] | | |
+Co-Existence[constructor, one] | | |
+Co-Existence[compiler, one] | | |
+Co-Existence[creates, one] | | |
+Co-Existence[default, one] | | |
+Co-Existence[c++, constructor] | | |
+Co-Existence[constructor, provided] | | |

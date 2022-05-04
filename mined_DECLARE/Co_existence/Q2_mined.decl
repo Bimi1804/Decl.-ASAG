@@ -1,0 +1,32 @@
+activity refining
+activity testing
+activity maintenance
+activity stage
+activity production
+activity coding
+activity phase
+activity elaboration
+activity transition
+activity influenced
+activity construction
+activity software
+activity cycle
+activity solution
+activity error
+activity life
+activity requirement
+Co-Existence[production, refining] | | |
+Co-Existence[stage, testing] | | |
+Co-Existence[coding, refining] | | |
+Co-Existence[construction, elaboration] | | |
+Co-Existence[maintenance, testing] | | |
+Co-Existence[influenced, stage] | | |
+Co-Existence[production, stage] | | |
+Co-Existence[elaboration, transition] | | |
+Co-Existence[cycle, testing] | | |
+Co-Existence[error, testing] | | |
+Co-Existence[cycle, life] | | |
+Co-Existence[refining, solution] | | |
+Co-Existence[requirement, stage] | | |
+Co-Existence[software, stage] | | |
+Co-Existence[phase, testing] | | |

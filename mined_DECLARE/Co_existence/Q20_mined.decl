@@ -1,0 +1,33 @@
+activity case
+activity base
+activity recursion
+activity step
+activity converge
+activity infinite
+activity recursive
+activity incorrectly
+activity writing
+activity omitting
+activity call
+activity function
+activity never
+activity problem
+activity either
+activity cause
+activity reach
+Co-Existence[case, recursion] | | |
+Co-Existence[base, incorrectly] | | |
+Co-Existence[incorrectly, recursion] | | |
+Co-Existence[recursion, writing] | | |
+Co-Existence[converge, step] | | |
+Co-Existence[base, call] | | |
+Co-Existence[cause, infinite] | | |
+Co-Existence[infinite, step] | | |
+Co-Existence[incorrectly, infinite] | | |
+Co-Existence[base, never] | | |
+Co-Existence[case, reach] | | |
+Co-Existence[recursion, recursive] | | |
+Co-Existence[converge, omitting] | | |
+Co-Existence[problem, recursive] | | |
+Co-Existence[either, incorrectly] | | |
+Co-Existence[base, function] | | |

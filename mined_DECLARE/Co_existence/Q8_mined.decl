@@ -1,0 +1,25 @@
+activity function
+activity data
+activity class
+activity member
+activity public
+activity private
+activity name
+activity definition
+activity constructor
+activity usually
+activity method
+activity includes
+activity variable
+Co-Existence[data, member] | | |
+Co-Existence[private, public] | | |
+Co-Existence[class, definition] | | |
+Co-Existence[class, variable] | | |
+Co-Existence[class, constructor] | | |
+Co-Existence[class, includes] | | |
+Co-Existence[definition, usually] | | |
+Co-Existence[function, public] | | |
+Co-Existence[data, method] | | |
+Co-Existence[data, public] | | |
+Co-Existence[constructor, data] | | |
+Co-Existence[name, public] | | |

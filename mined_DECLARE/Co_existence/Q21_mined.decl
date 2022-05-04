@@ -1,0 +1,28 @@
+activity test
+activity involve
+activity repetition
+activity termination
+activity control
+activity statement
+activity based
+activity occur
+activity approach
+activity gradually
+activity loop
+activity infinitely
+activity recursion
+activity infinite
+activity iteration
+Co-Existence[involve, statement] | | |
+Co-Existence[repetition, test] | | |
+Co-Existence[based, termination] | | |
+Co-Existence[based, test] | | |
+Co-Existence[gradually, termination] | | |
+Co-Existence[gradually, involve] | | |
+Co-Existence[occur, test] | | |
+Co-Existence[approach, test] | | |
+Co-Existence[approach, infinitely] | | |
+Co-Existence[recursion, statement] | | |
+Co-Existence[iteration, repetition] | | |
+Co-Existence[infinite, loop] | | |
+Co-Existence[control, recursion] | | |

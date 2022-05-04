@@ -1,0 +1,33 @@
+################################################################################################################################
+		Question: Where are variables declared in a C++ program?
+		Answer: Variables can be declared anywhere in a program. They can be declared inside a function (local variables) or outside the functions (global variables)
+
+2	[6]	They can be declared right before they are used, but it is a good practice to declare them at the beginning of the program and label what they are food.
+3	[5]	In the Function main() before using the variable.
+5	[8]	Local variables are declared inside the method or function they will be used in at the beginning of the method. Global variables are declared outside of any function or method, generally before functions are defined.
+4.5	[3]	Variables are declared where ever it is defined either inside a block locally or outside a block globally.
+4	[4]	Variables are declared before they are actually used. They can be declared before main() to use globally
+2.5	[24]	For good programing practice they should be declared before main(), but should at least be declared before they are used.
+5	[9]	They can be declared globally just before the main method (but also outside of it)... or variables can be subject to only the method they're scoped within, but would still be declared at the beginning of that method (but inside of it).
+5	[22]	local variables are declared inside the method while global variables are declared in the body.
+2	[23]	 -Any where in the main function.
+4.5	[2]	Globally for an entire program, and locally for individual functions (including FOR statements)
+3	[29]	 They are usually declared at the beginning before they can be used in the program. They always contain a name and a data type.<br>
+2.5	[31]	Inside the method.
+1.5	[12]	at the top
+5	[21]	Global variables are declared in the body of the code. Local variables are declared in the function they are to be used (unless the function is being passed a variable). Variables should always be declared before use.
+2.5	[13]	Variables are usually declared at the beginning of a module of C++ code.
+3.5	[11]	In the main function, usually at the top of code.<br><br>They can be declared almost anywhere, but must be declared before the code can use or act upon them.
+2	[17]	in the very beginning of the program. Before the main() starts. 
+2.5	[7]	In the declaration of Functions, for statements, and while statements.<br>in the body of If, For, while, do while, statements, in namespaces, headers, etc  ( almost anywhere. )<br>anywhere in the program, as long as it is on it's own line.
+1	[10]	After declaration of the variable's data type.
+3	[27]	anywhere in the code, can be at the top, or in the middle of the code, or anywhere.
+2	[20]	Before they are used.
+3.5	[18]	Anywhere in the same scope before they are used
+2.5	[19]	variables can be declared in classes and methods.
+5	[16]	inside the function scope and outside of the function scope in case of global variables
+4	[26]	global variables are declared in the main function<br>local variables are declared in any other function
+4	[1]	Variables are usually declared at the very beginning of a C++ program, but can be declared any in the program as long as they appear before they are called upon.
+2	[28]	Variables are declared in the main function, before any operation is <br><br>attempted with the variables.
+4.5	[15]	anywhere, but where you declare them depends on where you want them to be accessible (their scope)
+4.5	[14]	It depends if itâ€™s a global then they have to be declared out side the source code to be used in every scope however a local variable is one declared in a local function etc. which obviously doesnâ€™t need to be declared outside the variable seeing how it is used for the function or block its being called for. 

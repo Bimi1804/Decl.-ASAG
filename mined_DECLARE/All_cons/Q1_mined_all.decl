@@ -1,0 +1,65 @@
+activity program
+activity software
+activity problem
+activity product
+activity portion
+activity desired
+activity prototype
+activity behavior
+activity simulates
+activity solving
+activity used
+activity part
+activity may
+activity solution
+activity idea
+activity show
+activity error
+activity specification
+Chain Succession[portion, desired] | | |
+Alternate Succession[desired, product] | | |
+Alternate Succession[portion, product] | | |
+Alternate Succession[behavior, software] | | |
+Alternate Succession[behavior, desired] | | |
+Chain Succession[software, product] | | |
+Chain Succession[behavior, portion] | | |
+Alternate Succession[behavior, product] | | |
+Chain Succession[desired, software] | | |
+Alternate Succession[portion, software] | | |
+Alternate Succession[simulates, product] | | |
+Alternate Succession[simulates, software] | | |
+Alternate Succession[simulates, portion] | | |
+Chain Succession[simulates, behavior] | | |
+Alternate Succession[simulates, desired] | | |
+Alternate Succession[program, problem] | | |
+Alternate Precedence[prototype, software] | | |
+Alternate Succession[program, portion] | | |
+Alternate Succession[program, software] | | |
+Alternate Succession[program, desired] | | |
+Alternate Succession[program, behavior] | | |
+Chain Succession[prototype, program] | | |
+Alternate Succession[program, product] | | |
+Chain Precedence[problem, solving] | | |
+Co-Existence[software, specification] | | |
+Co-Existence[error, program] | | |
+Co-Existence[part, program] | | |
+Succession[prototype, solution] | | |
+Co-Existence[program, show] | | |
+Alternate Precedence[prototype, used] | | |
+Alternate Succession[program, solving] | | |
+Alternate Precedence[prototype, solution] | | |
+Succession[program, used] | | |
+Co-Existence[idea, program] | | |
+Succession[problem, program] | | |
+Alternate Response[product, program] | | |
+Alternate Response[solving, problem] | | |
+Alternate Precedence[program, may] | | |
+Alternate Response[part, program] | | |
+Alternate Succession[problem, may] | | |
+Alternate Succession[prototype, problem] | | |
+Alternate Precedence[program, used] | | |
+Chain Succession[program, simulates] | | |
+Alternate Precedence[prototype, product] | | |
+Alternate Response[problem, program] | | |
+Alternate Precedence[prototype, solving] | | |
+Alternate Response[idea, program] | | |

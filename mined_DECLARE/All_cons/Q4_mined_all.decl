@@ -1,0 +1,35 @@
+activity main
+activity function
+activity (
+activity )
+activity begin
+activity c++
+activity program
+activity execution
+activity method
+activity execute
+Chain Succession[(, )] | | |
+Chain Succession[main, (] | | |
+Alternate Succession[main, )] | | |
+Alternate Succession[begin, main] | | |
+Chain Succession[main, function] | | |
+Alternate Succession[c++, begin] | | |
+Chain Succession[program, begin] | | |
+Chain Succession[c++, program] | | |
+Alternate Succession[program, main] | | |
+Alternate Succession[c++, main] | | |
+Alternate Succession[begin, function] | | |
+Chain Succession[main, method] | | |
+Chain Succession[begin, execution] | | |
+Alternate Succession[(, function] | | |
+Alternate Succession[execute, main] | | |
+Alternate Succession[program, execution] | | |
+Alternate Succession[function, main] | | |
+Alternate Succession[begin, (] | | |
+Alternate Succession[begin, )] | | |
+Chain Succession[begin, execute] | | |
+Chain Succession[execution, main] | | |
+Chain Succession[), function] | | |
+Alternate Succession[program, function] | | |
+Alternate Succession[c++, execution] | | |
+Alternate Succession[c++, function] | | |

@@ -1,0 +1,45 @@
+activity refining
+activity testing
+activity maintenance
+activity stage
+activity production
+activity coding
+activity phase
+activity elaboration
+activity transition
+activity influenced
+activity construction
+activity software
+activity cycle
+activity solution
+activity error
+activity life
+activity requirement
+Alternate Succession[refining, maintenance] | | |
+Chain Succession[production, maintenance] | | |
+Co-Existence[coding, refining] | | |
+Chain Succession[refining, production] | | |
+Alternate Succession[maintenance, stage] | | |
+Alternate Succession[elaboration, transition] | | |
+Chain Succession[construction, transition] | | |
+Chain Succession[influenced, testing] | | |
+Co-Existence[phase, testing] | | |
+Chain Succession[refining, solution] | | |
+Precedence[testing, phase] | | |
+Precedence[testing, production] | | |
+Chain Succession[life, cycle] | | |
+Chain Succession[testing, stage] | | |
+Chain Succession[elaboration, construction] | | |
+Alternate Response[coding, refining] | | |
+Alternate Response[influenced, stage] | | |
+Alternate Response[refining, testing] | | |
+Alternate Response[coding, testing] | | |
+Alternate Precedence[refining, coding] | | |
+Alternate Precedence[stage, software] | | |
+Co-Existence[cycle, testing] | | |
+Co-Existence[error, testing] | | |
+Succession[refining, testing] | | |
+Alternate Succession[production, stage] | | |
+Co-Existence[requirement, stage] | | |
+Co-Existence[software, stage] | | |
+Alternate Succession[refining, stage] | | |

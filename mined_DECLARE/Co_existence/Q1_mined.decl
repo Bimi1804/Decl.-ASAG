@@ -1,0 +1,35 @@
+activity program
+activity software
+activity problem
+activity product
+activity portion
+activity desired
+activity prototype
+activity behavior
+activity simulates
+activity solving
+activity used
+activity part
+activity may
+activity solution
+activity idea
+activity show
+activity error
+activity specification
+Co-Existence[behavior, portion] | | |
+Co-Existence[behavior, software] | | |
+Co-Existence[behavior, desired] | | |
+Co-Existence[product, software] | | |
+Co-Existence[program, software] | | |
+Co-Existence[desired, simulates] | | |
+Co-Existence[program, solving] | | |
+Co-Existence[program, show] | | |
+Co-Existence[problem, used] | | |
+Co-Existence[software, used] | | |
+Co-Existence[prototype, used] | | |
+Co-Existence[problem, solution] | | |
+Co-Existence[may, program] | | |
+Co-Existence[idea, program] | | |
+Co-Existence[software, specification] | | |
+Co-Existence[error, program] | | |
+Co-Existence[part, program] | | |

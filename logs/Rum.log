@@ -1,0 +1,13 @@
+2022-05-04 14:08:47,028 DEBUG   [main] theFirst.RumLauncher - Starting RuM launcher
+2022-05-04 14:08:47,322 DEBUG   [JavaFX Application Thread] theFirst.Rum - Starting RuM
+2022-05-04 14:08:47,830 DEBUG   [JavaFX Application Thread] controller.common.NavigationSidebarController - Navigation sidebar initialized
+2022-05-04 14:08:47,831 DEBUG   [JavaFX Application Thread] controller.common.RootLayoutController - Navigating to page: START
+2022-05-04 14:08:47,863 DEBUG   [JavaFX Application Thread] controller.common.StartPageController - Start page initialized
+2022-05-04 14:08:47,863 DEBUG   [JavaFX Application Thread] controller.common.RootLayoutController - Loaded page: START
+2022-05-04 14:08:47,864 INFO    [JavaFX Application Thread] controller.common.RootLayoutController - Navigated to page: START
+2022-05-04 14:08:47,864 DEBUG   [JavaFX Application Thread] controller.common.RootLayoutController - Root layout initialized
+2022-05-04 14:08:47,864 DEBUG   [JavaFX Application Thread] theFirst.Rum - Root fxml loaded
+2022-05-04 14:08:47,867 DEBUG   [JavaFX Application Thread] theFirst.Rum - Main css loaded
+2022-05-04 14:08:48,109 DEBUG   [JavaFX Application Thread] theFirst.Rum - Primary stage ready and showing
+2022-05-04 14:08:48,109 INFO    [JavaFX Application Thread] theFirst.Rum - RuM started
+2022-05-04 14:10:18,761 INFO    [JavaFX Application Thread] theFirst.Rum - RuM closed

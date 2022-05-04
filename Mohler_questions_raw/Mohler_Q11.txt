@@ -1,0 +1,34 @@
+###############################################################################################################
+		Question: When does C++ create a default constructor?
+		Answer: If no constructor is provided, the compiler provides one by default. If a constructor is defined for a class, the compiler does not create a default constructor.
+
+5	[6]	The compiler creates a default constructor when we do not define one in our class file
+3.5	[5]	during compilation
+5	[8]	When the class does not explicitly include a constructor.
+3	[3]	When no parameters are set is when a default constructor is used.  
+5	[4]	When a class does not explicitly include a constructor.
+1.5	[9]	When there are no arguments passed.
+5	[22]	when there is not one already for a specific class
+3.5	[23]	When it the programs compiles
+5	[2]	when a constructor is not provided by the programmer of the class
+5	[29]	In any class that does not explicitly include a constructor.
+1	[31]	Before the main function of the code.
+5	[12]	whenevery you dont specifiy your own
+5	[21]	When non are provided
+5	[13]	C++ will create a default constructor when no other constructor is present.
+5	[11]	When no constructor was specified in the constructor's class, but the class is instantiated in a program.
+5	[17]	When no constructor exists when one is needed, a parameterless default constructor is declared.
+5	[7]	The Compiler creates this automatically for you, unless you specifically create one.
+5	[10]	In any class that doesn't explicitly include a constructor.
+5	[27]	when no user-defined constructor exists
+5	[25]	If a class does not explicitly include a constructor, the compiler creates one.
+5	[20]	When you do not provide your own constructor.
+5	[18]	When a class does not explicitly include a constructor.
+5	[19]	C++ creates a default constructor during compilation if one is not provided.
+5	[30]	when a class does not explicitly include a constructor
+5	[16]	The compiler will provide one when class does not explictly include a consructor.
+5	[26]	when the programmer does not explicitly include a constructor
+5	[1]	When one is not explicitly stated.
+5	[28]	when one is not explicitly included by a class<br>
+5	[15]	When you dont specify any constructors.
+5	[14]	at the very beginning when you run a complier, matter a fact in C++ it generates its own default constructor for the class provided if no other constructors have been provided by user

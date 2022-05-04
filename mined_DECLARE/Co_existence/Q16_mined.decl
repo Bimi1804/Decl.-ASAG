@@ -1,0 +1,29 @@
+activity file
+activity variable
+activity program
+activity global
+activity scope
+activity function
+activity source
+activity throughout
+activity follows
+activity definition
+activity value
+activity class
+activity execution
+activity declaration
+activity referenced
+Co-Existence[file, global] | | |
+Co-Existence[file, variable] | | |
+Co-Existence[global, scope] | | |
+Co-Existence[program, variable] | | |
+Co-Existence[program, throughout] | | |
+Co-Existence[function, referenced] | | |
+Co-Existence[referenced, source] | | |
+Co-Existence[execution, program] | | |
+Co-Existence[value, variable] | | |
+Co-Existence[declaration, referenced] | | |
+Co-Existence[function, program] | | |
+Co-Existence[definition, referenced] | | |
+Co-Existence[follows, source] | | |
+Co-Existence[class, variable] | | |

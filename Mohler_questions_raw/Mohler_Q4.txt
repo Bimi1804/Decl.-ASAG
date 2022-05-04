@@ -1,0 +1,33 @@
+################################################################################################################################
+		Question: Where do C++ programs begin to execute?
+		Answer: At the main function.
+
+5	[6]	At function â€˜int main ()â€™
+5	[5]	the Function main().
+5	[8]	c++ programs begin to execute in the main method.
+5	[3]	A C++ program will begin to execute at the main() function.<br>
+5	[4]	They begin in the main() function.
+5	[24]	Int main()
+5	[9]	main method
+0	[22]	in the testing phase
+5	[23]	-At the MAIN function
+5	[2]	main
+5	[29]	 They begin to execute at the funcion main().
+5	[31]	The main method.
+2.5	[12]	At the root
+5	[21]	In the main() function.
+5	[13]	C++ programs begin execution at main.
+5	[11]	In the Main function..?
+5	[17]	At the "main()" function
+5	[7]	The main function.
+5	[10]	The function main
+5	[27]	After loading the required include statements and libraries, the main method begins the execution.
+5	[20]	main function
+5	[18]	main
+5	[19]	C++ programs begin execution at the main function.
+5	[16]	At main
+5	[26]	they beging to excute at main
+5	[1]	at the main function<br><br>int main() {}
+5	[28]	C++ programs begin execution at the main function.
+5	[15]	in the "main" function
+5	[14]	Within the main function

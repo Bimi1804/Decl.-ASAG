@@ -1,0 +1,35 @@
+activity declared
+activity variable
+activity function
+activity main
+activity used
+activity (
+activity )
+activity beginning
+activity program
+activity inside
+activity global
+activity method
+activity outside
+activity code
+activity usually
+activity globally
+activity local
+activity use
+Co-Existence[function, variable] | | |
+Co-Existence[declared, used] | | |
+Co-Existence[declared, main] | | |
+Co-Existence[declared, global] | | |
+Co-Existence[code, declared] | | |
+Co-Existence[beginning, variable] | | |
+Co-Existence[local, variable] | | |
+Co-Existence[(, variable] | | |
+Co-Existence[), declared] | | |
+Co-Existence[method, variable] | | |
+Co-Existence[beginning, used] | | |
+Co-Existence[), globally] | | |
+Co-Existence[declared, use] | | |
+Co-Existence[(, program] | | |
+Co-Existence[function, outside] | | |
+Co-Existence[global, inside] | | |
+Co-Existence[beginning, usually] | | |

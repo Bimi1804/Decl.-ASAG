@@ -1,0 +1,140 @@
+activity easier
+activity class
+activity program
+activity maintenance
+activity existing
+activity verification
+activity object
+activity reused
+activity data
+activity code
+activity programming
+activity encapsulation
+activity use
+activity advantage
+activity one
+activity operation
+activity time
+activity make
+activity allows
+activity reuse
+activity module
+activity appropriate
+activity debugging
+activity method
+activity inheritance
+activity main
+activity combine
+activity read
+activity execution
+activity determine
+activity abstraction
+activity also
+Alternate Succession[existing, maintenance] | | |
+Chain Succession[existing, class] | | |
+Alternate Succession[class, verification] | | |
+Chain Succession[maintenance, verification] | | |
+Alternate Succession[class, maintenance] | | |
+Alternate Succession[existing, verification] | | |
+Chain Succession[verification, easier] | | |
+Alternate Succession[existing, easier] | | |
+Alternate Succession[maintenance, easier] | | |
+Alternate Succession[class, easier] | | |
+Alternate Succession[class, program] | | |
+Alternate Succession[program, easier] | | |
+Chain Succession[program, maintenance] | | |
+Alternate Succession[existing, program] | | |
+Alternate Succession[program, verification] | | |
+Co-Existence[code, easier] | | |
+Alternate Succession[existing, reused] | | |
+Alternate Succession[reused, easier] | | |
+Chain Succession[class, reused] | | |
+Chain Succession[reused, program] | | |
+Alternate Succession[reused, maintenance] | | |
+Alternate Succession[reused, verification] | | |
+Alternate Response[code, easier] | | |
+Alternate Response[programming, easier] | | |
+Alternate Response[class, object] | | |
+Succession[object, operation] | | |
+Response[one, class] | | |
+Alternate Precedence[easier, code] | | |
+Alternate Precedence[advantage, class] | | |
+Alternate Precedence[object, appropriate] | | |
+Alternate Response[data, class] | | |
+Alternate Precedence[object, operation] | | |
+Alternate Response[data, operation] | | |
+Alternate Precedence[object, use] | | |
+Alternate Precedence[object, time] | | |
+Alternate Response[advantage, class] | | |
+Alternate Response[data, object] | | |
+Alternate Response[encapsulation, method] | | |
+Alternate Precedence[object, execution] | | |
+Alternate Response[make, program] | | |
+Alternate Precedence[class, appropriate] | | |
+Alternate Response[make, easier] | | |
+Alternate Precedence[one, inheritance] | | |
+Alternate Precedence[advantage, data] | | |
+Alternate Response[encapsulation, data] | | |
+Alternate Precedence[operation, time] | | |
+Alternate Response[object, operation] | | |
+Alternate Precedence[class, execution] | | |
+Alternate Precedence[advantage, program] | | |
+Alternate Response[determine, operation] | | |
+Alternate Precedence[class, determine] | | |
+Alternate Precedence[class, time] | | |
+Alternate Response[encapsulation, class] | | |
+Co-Existence[easier, make] | | |
+Co-Existence[class, inheritance] | | |
+Alternate Response[make, class] | | |
+Alternate Response[reuse, class] | | |
+Alternate Response[combine, operation] | | |
+Alternate Response[reuse, program] | | |
+Alternate Response[combine, object] | | |
+Alternate Response[code, program] | | |
+Co-Existence[abstraction, easier] | | |
+Alternate Response[combine, class] | | |
+Co-Existence[also, code] | | |
+Co-Existence[allows, class] | | |
+Alternate Response[encapsulation, operation] | | |
+Alternate Response[encapsulation, use] | | |
+Chain Response[appropriate, operation] | | |
+Chain Response[main, advantage] | | |
+Chain Response[encapsulation, object] | | |
+Chain Precedence[object, determine] | | |
+Chain Precedence[easier, read] | | |
+Chain Precedence[operation, execution] | | |
+Co-Existence[debugging, module] | | |
+Succession[data, operation] | | |
+Succession[advantage, class] | | |
+Succession[encapsulation, method] | | |
+Succession[programming, easier] | | |
+Succession[operation, execution] | | |
+Succession[encapsulation, object] | | |
+Co-Existence[easier, module] | | |
+Succession[object, determine] | | |
+Succession[main, advantage] | | |
+Succession[one, inheritance] | | |
+Succession[reuse, class] | | |
+Succession[class, determine] | | |
+Alternate Succession[combine, appropriate] | | |
+Alternate Succession[data, time] | | |
+Succession[encapsulation, use] | | |
+Chain Succession[execution, time] | | |
+Alternate Succession[data, determine] | | |
+Chain Succession[combine, data] | | |
+Alternate Succession[appropriate, execution] | | |
+Chain Succession[determine, appropriate] | | |
+Alternate Succession[combine, time] | | |
+Alternate Succession[code, read] | | |
+Alternate Succession[combine, determine] | | |
+Alternate Succession[determine, execution] | | |
+Alternate Succession[combine, execution] | | |
+Alternate Succession[advantage, easier] | | |
+Alternate Succession[data, execution] | | |
+Alternate Succession[data, appropriate] | | |
+Alternate Succession[appropriate, time] | | |
+Alternate Succession[determine, time] | | |
+Alternate Succession[advantage, maintenance] | | |
+Precedence[object, class] | | |
+Precedence[program, also] | | |
+Response[easier, program] | | |

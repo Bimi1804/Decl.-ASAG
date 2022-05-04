@@ -1,0 +1,19 @@
+activity main
+activity function
+activity (
+activity )
+activity begin
+activity c++
+activity program
+activity execution
+activity method
+activity execute
+Co-Existence[), main] | | |
+Co-Existence[c++, main] | | |
+Co-Existence[begin, c++] | | |
+Co-Existence[main, method] | | |
+Co-Existence[begin, execution] | | |
+Co-Existence[c++, function] | | |
+Co-Existence[execution, program] | | |
+Co-Existence[(, begin] | | |
+Co-Existence[execute, main] | | |

@@ -1,0 +1,27 @@
+activity type
+activity function
+activity argument
+activity number
+activity order
+activity call
+activity parameter
+activity compiler
+activity overloaded
+activity based
+activity signature
+activity proper
+activity selects
+activity execute
+Co-Existence[number, type] | | |
+Co-Existence[function, overloaded] | | |
+Co-Existence[compiler, number] | | |
+Co-Existence[argument, based] | | |
+Co-Existence[function, signature] | | |
+Co-Existence[argument, execute] | | |
+Co-Existence[argument, proper] | | |
+Co-Existence[argument, selects] | | |
+Co-Existence[execute, function] | | |
+Co-Existence[call, compiler] | | |
+Co-Existence[compiler, order] | | |
+Co-Existence[based, compiler] | | |
+Co-Existence[overloaded, parameter] | | |

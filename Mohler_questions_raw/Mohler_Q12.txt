@@ -1,0 +1,34 @@
+###############################################################################################################
+		Question:  How many constructors can be created for a class?
+		Answer: Unlimited number.
+
+0	[6]	Just one per class.
+5	[5]	As many as you want so long as they have different parameters.
+5	[8]	There is no limit to the number of constructors in a class because like functions, constructors can be overloaded.
+1.5	[3]	It depends what type of class is being defined.  Typically you would have a constructor call for each object.
+5	[4]	In C++, the constructor can be overloaded in that there can be more than one constructor for a class, each having different parameters.
+0	[9]	1
+5	[22]	any number you want
+0	[23]	One
+5	[2]	by default just one, but they may be overloaded to create as many constructors as necessary
+5	[29]	as many as you want
+5	[31]	As many as you want, with different parameters.
+5	[12]	infinite
+5	[21]	as many as you need
+5	[13]	As many as are needed, depending on how many variables one wishes to directly modify or leave as default when instantiating an object.
+5	[11]	A very large amount of constructors can be created for any given class through overloading.  When two constructors with a different type or number of parameters are created, they are said to be overloaded, and C++ can recognize which constructor to use based on the type of the variables that are passed/returned.
+2.5	[17]	It depends on the number of objects. Each object should have a constructor.
+5	[7]	Theoretically unlimited, as long as they are defined by the programmer.
+5	[10]	As many as needed.
+5	[27]	as many as wanted/needed
+4.5	[25]	several
+0	[20]	One
+0	[18]	one
+5	[19]	There can be infinite constructors as long as the signature is different.
+1.5	[30]	that depends on the number of data members in the class
+0	[16]	one
+5	[26]	you can overload constructors as you need
+5	[1]	As many as the programmer wants to create. 
+0	[28]	one
+5	[15]	as many as you want, as long as they each have a unique argument list
+5	[14]	as many as the user decides to use. 
