@@ -17,6 +17,7 @@ removable_items = [".", ","] # additional strings that should be removed
 # import tkinter for dialog-windows:
 #import tkinter as tk
 from tkinter.filedialog import askopenfilenames # dialog for opening a file
+from tkinter.filedialog import askopenfilename # dialog for opening a file
 from tkinter.filedialog import asksaveasfilename # dialog for saving a file
 #root = tk.Tk()
 #root.withdraw()
@@ -86,6 +87,8 @@ class Question:
         To directly store the question ID
     q_text : str
         To directly store the question text
+    original_file_name : str
+        The file name of the raw import file
 
     Attributes
     ----------
@@ -93,6 +96,8 @@ class Question:
         Store the question ID
     q_text : str
         Store the question text
+    original_file_name : str
+        Store original_file_name
     pre_processed_question_text : str[0..*]
         The question text after NLP pre-processing
     student_answers : Student_answer[0..*]
@@ -118,9 +123,10 @@ class Question:
         Displays all processed answer texts and the fulfilled constraints where
         A and B are included in the processed answer.
     """
-    def __init__(self,q_id,q_text):
+    def __init__(self,q_id,q_text,original_file_name):
         self.q_id = q_id
         self.q_text = q_text
+        self.original_file_name = original_file_name
         self.pre_processed_question_text = []
         self.student_answers = []
         self.teacher_answers = []
@@ -327,6 +333,7 @@ class Student_answer(Answer):
         self.student_id = student_id
         self.calculated_rightness = None
         self.grade = grade
+        self.new_grade = None
         # Add the object to the student_answer list of the Question object
         # that is given as Parameter:
         question.student_answers.append(self)
@@ -590,7 +597,7 @@ class Constraint:
         self.activity_b = activity_b
         self.constraint_type = constraint_type
         self.constraint_support = constraint_support
-        self.essential_for_rightness = True
+        self.essential_for_rightness = None
         self.activity_a.event_log.mined_constraints.append(self)
 
 class Constraint_type:
@@ -611,10 +618,6 @@ class Constraint_type:
     -------
     conformance_check(constraint,answer) : bool
         Checks if the given answer fulfills the given constraint
-    __co_existence_check(act_a,act_b,processed_answer): bool
-        Checks if Co-Existence[A,B] is fulfilled by an answer
-    __precedence_check(act_a,act_b,processed_answer): bool
-        Checks if Precedence[A,B] is fulfilled by an answer
     """
     def __init__(self,constraint_type_name):
         self.constraint_type_name = constraint_type_name

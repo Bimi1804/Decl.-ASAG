@@ -38,7 +38,7 @@ def import_mohler_txt(question_id=0):
     returned_imports = []
     import_files = askopenfilenames(title="Import Mohler2009 question")
     for file in import_files:
-        original_file_name = str(file) # store file-name
+        original_file_name = str(file).rsplit("/",1)[1] # store file-name
         with open(file, encoding="utf-8") as raw_dataset_file:
             raw_dataset_txt = raw_dataset_file.read() # read the import_file
         dataset_list = raw_dataset_txt.split("\n") # Split raw dataset into a list
@@ -70,7 +70,9 @@ def import_mohler_txt(question_id=0):
             if "[" in line or "]" in line:
                 answer_list.append(line)
         # Create the Question-object:
-        new_question = Question(q_id = "Q." + str(question_id), q_text=question)
+        new_question = Question(q_id = "Q." + str(question_id),
+                                q_text=question,
+                                original_file_name = original_file_name)
         question_id += 1
         # Create Teacher_answer objects:
         for i in teacher_answers:
