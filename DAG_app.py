@@ -1,24 +1,60 @@
 # declarative answer grader UI
+
+# Import tkinter:
 from tkinter import*
 from tkinter import ttk
+
+# Import other answer_grading files:
 from python_files.classes import *
 from python_files.import_export_functions import *
+
+# import additional tools:
 import sys
 import re
 
+
+#TKinter Window:
 root = Tk()
 root.title("Answer Grader")
 root.geometry("900x500")
 
-# Counter for imported IDs
-global count
+
+
+
+############################## GLOBAL VARIABLES #############################
+
+# variables:
+global count # Counter for imported IDs
+global current_frames_p1 # current frames that are displayed in the main window
+global imported_questions # List for objects of imported questions
+global current_question # question that is displayed in Detail-View
+global curr_rated_constraint # current constraint to rate
+global curr_grading_answer # current answer to grade
+
+# initial values:
 count = 1
-
-global current_frames_p1
 current_frames_p1=[]
-
 imported_questions = []
+current_question = ""
+curr_rated_constraint = ""
+curr_grading_answer = ""
+
+
+
+
+################################## FUNCTIONS #################################
+
+# Import raw Mohler2009 data:
 def import_file_mohler_txt():
+    """
+    (1) Import one or multiple questions from Mohler2009 with
+        import_mohler_txt() from import_export_functions.py to import.
+
+    (2) NLP pre-process for all questions/answers with pre_process_question()
+        from classes.py
+
+    (3) generate event-log objects with generate_event_log() from classes.py
+    """
     global count
     global current_frames_p1
     mohler_imports = import_mohler_txt(count)
@@ -38,9 +74,12 @@ def import_file_mohler_txt():
         panel_1.add(question_tree)
         current_frames_p1=[display_frame,question_tree]
 
-
-# Remove records:
+# Remove selected questions in QUESTION-OVERVIEW:
 def remove_selected():
+    """
+    Remove the currently selected question from tree and imported questions.
+    If question tree is empty: hide the tree and the display frame.
+    """
     len_children = len(question_tree.get_children())
     selected = question_tree.selection()
     len_selection = len(selected)
@@ -56,62 +95,11 @@ def remove_selected():
         panel_1.forget(question_tree)
         panel_1.forget(display_frame)
 
-
-# Side-Bar:-------------------------------------
-side_frame = Frame(root, width=300)
-side_frame.pack(side="left",anchor=W, fill=Y)
-#side_frame.grid(row=1,column=1)
-space_left = ttk.Label(side_frame, text="")
-space_left.grid(row=1,column=1)
-space_right = ttk.Label(side_frame, text="")
-space_right.grid(row=1,column=3)
-
-# Import/add - Button
-import_btn = Button(side_frame, text="Import", command=import_file_mohler_txt)
-import_btn.grid(row=3, column=2)
-
-
-
-# Main Window:-----------------------------------
-main_frame = Frame(root)
-main_frame.pack(expand=True,fill="both")
-
-# Panel-Window for main_frame:
-panel_1 = PanedWindow(main_frame,bd=1,orient=VERTICAL, bg="black")
-panel_1.pack(fill=BOTH,expand=1)
-
-# Display-Frame for displaying data about the selected item:
-display_frame = Frame(panel_1)
-
-# Question - Text:
-question_label = ttk.Label(display_frame, text="Question: ")
-question_label.grid(row=1,column=1,sticky=W)
-question_display = ttk.Label(display_frame, text="")
-question_display.grid(row=1,column=2,sticky=W)
-# Number of Student answers:
-number_std_answ_label = ttk.Label(display_frame, text="Student answers: ")
-number_std_answ_label.grid(row=2,column=1,sticky=W)
-number_std_answ_display = ttk.Label(display_frame, text="")
-number_std_answ_display.grid(row=2,column=2,sticky=W)
-# Constraints rated "x from all":
-cons_label = ttk.Label(display_frame, text="Constraints rated: ")
-cons_label.grid(row=3, column=1, sticky=W)
-cons_display = ttk.Label(display_frame, text="", foreground="")
-cons_display.grid(row=3, column=2, sticky=W)
-# Answers graded "y from all":
-answ_graded_label = ttk.Label(display_frame, text="Answers graded: ")
-answ_graded_label.grid(row=4, column=1, sticky=W)
-answ_graded_display = ttk.Label(display_frame, text="", foreground="")
-answ_graded_display.grid(row=4, column=2, sticky=W)
-#------------------
-
-
-# Remove selected
-remove_selected = Button(display_frame, text="Remove", command=remove_selected)
-remove_selected.grid(row=10,column=1, sticky=W)
-
-# Select item in list:
+# Display Data about selected question in QUESTION-OVERVIEW:
 def selectItem_qst(a):
+    """
+    Display data about the selected item in the question tree.
+    """
     cur_item = question_tree.focus()
     q_id = question_tree.item(cur_item)["values"][0]
     question = ""
@@ -130,7 +118,6 @@ def selectItem_qst(a):
         max_cons = len(question.event_log.mined_constraints)
         cons_display.configure(text = str(rated_cons) + " from " + str(max_cons),
                                foreground="")
-
     if rated_cons == 0:
         answ_graded_display.configure(text = "Please rate all Constraints", foreground="red")
     else:
@@ -142,31 +129,18 @@ def selectItem_qst(a):
         answ_graded_display.configure(text = str(graded_answ) + " from " + str(max_answ),
                                foreground="")
 
-# Question-Tree:---------------------------------------------------------
+# On double click: Open selected question in DETAIL-View
+def on_double_click_qst(event):
+    global current_question
+    global current_frames_p1
+    cur_item = question_tree.focus()
+    q_id = question_tree.item(cur_item)["values"][0]
+    for qst in imported_questions:
+        if qst.q_id == q_id:
+            current_question = qst
+    display_curr_question()
 
-question_tree = ttk.Treeview(panel_1)
-question_tree["columns"] = ("Q_object","Question", "file")
-
-# Formate columns:
-question_tree.column("#0", width=0, stretch=NO)
-question_tree.column("Q_object", anchor=W,width=10)
-question_tree.column("Question", anchor=W,width=300)
-question_tree.column("file",anchor=W,width=300)
-# Create headings:
-question_tree.heading("#0",text="")
-question_tree.heading("Q_object", text="Q_object", anchor=W)
-question_tree.heading("Question",text="Question",anchor=W)
-question_tree.heading("file", text="file", anchor=W)
-
-question_tree["displaycolumns"] = ("Question", "file")
-
-# on left mouse-button: select item
-question_tree.bind('<ButtonRelease-1>', selectItem_qst)
-
-
-global current_question
-current_question = ""
-
+# Display Question in DETAIL-VIEW
 def display_curr_question():
     global current_question
     global current_frames_p1
@@ -179,51 +153,7 @@ def display_curr_question():
     current_frames_p1=[display_frame_answ,button_frame_answ,answ_tree]
     fill_answer_tree(current_question)
 
-def on_double_click_qst(event):
-    global current_question
-    global current_frames_p1
-    cur_item = question_tree.focus()
-    q_id = question_tree.item(cur_item)["values"][0]
-    for qst in imported_questions:
-        if qst.q_id == q_id:
-            current_question = qst
-    display_curr_question()
-
-question_tree.bind("<Double-1>", on_double_click_qst)
-
-
-#------------------ANSWER-VIEW-------------------------------------------------
-display_frame_answ = Frame(panel_1)
-button_frame_answ = Frame(panel_1)
-
-# Question - Text:
-qst_lab_answ = ttk.Label(display_frame_answ, text="Question: ")
-qst_lab_answ.grid(row=1,column=1,sticky=W)
-qst_disp_answ = ttk.Label(display_frame_answ, text="")
-qst_disp_answ.grid(row=1,column=2,sticky=W)
-
-# Student-ID:
-stud_id_label = ttk.Label(display_frame_answ, text="Student-ID: ")
-stud_id_label.grid(row=2,column=1,sticky=W)
-stud_id_disp = ttk.Label(display_frame_answ, text="")
-stud_id_disp.grid(row=2,column=2,sticky=W)
-
-# Student-Answ:
-stud_answ_lab = ttk.Label(display_frame_answ, text="Student-Answer: ")
-stud_answ_lab.grid(row=3,column=1,sticky=W)
-stud_answ_disp = ttk.Label(display_frame_answ, text="")
-stud_answ_disp.grid(row=3,column=2,sticky=W)
-
-#Grade:
-grade_label = ttk.Label(display_frame_answ, text="Grade: ")
-grade_label.grid(row=4,column=1,sticky=W)
-grade_disp = ttk.Label(display_frame_answ, text="")
-grade_disp.grid(row=4,column=2,sticky=W)
-
-
-
-# ---- Button functions:
-
+# Back to QUESTION-VIEW:
 def back_to_qst():
     global current_frames_p1
     for frame in current_frames_p1:
@@ -232,12 +162,14 @@ def back_to_qst():
     panel_1.add(question_tree)
     current_frames_p1 = [display_frame,question_tree]
 
+# Export event log as .xes for current question
 def export_event_log_btn():
     global current_question
     orig_file = current_question.original_file_name
     event_log = current_question.event_log
     event_log.export_event_log_xes(original_file_name=orig_file)
 
+# Import DECLARE file for current question
 def import_declare_btn():
     global current_question
     orig_file = current_question.original_file_name
@@ -245,6 +177,7 @@ def import_declare_btn():
     event_log.import_mined_declare(original_file_name=orig_file)
     current_question.check_constraints()
 
+# Highlight words in text:
 def highlight(field, word, whole_text, color):
     starts = []
     ends = []
@@ -255,9 +188,7 @@ def highlight(field, word, whole_text, color):
         field.tag_add("here" + starts[i], starts[i], ends[i])
         field.tag_config("here" + starts[i], background=color)
 
-global curr_rated_constraint
-curr_rated_constraint = ""
-
+# Rate Constraints:
 def rate_const():
     global current_question
     global current_frames_p1
@@ -304,42 +235,11 @@ def rate_const():
         # Display constraint:
         constr_explanation.configure(text= const_type + "[" + act_a + "," + act_b + "]")
 
-
-
-#current_question
-
+# Export analysis as .csv for current question:
 def export_csv():
     export_data_const_incl_a_b(question=current_question)
 
-#-----BUttons:
-# Export Event-log button
-export_event_log = Button(button_frame_answ, text="Export Event-log",
-                          command=export_event_log_btn)
-export_event_log.grid(row=10,column=1)
-
-# Import DECLARE button:
-import_declare = Button(button_frame_answ, text="Import DECLARE",
-                        command=import_declare_btn)
-import_declare.grid(row=10,column=2)
-
-#Rate Constraints button:
-rate_const_btn = Button(button_frame_answ, text="Rate Constraints",
-                        command=rate_const)
-rate_const_btn.grid(row=10,column=3)
-
-#Export to .csv:
-export_csv_btn = Button(button_frame_answ, text="Export .csv",
-                        command=export_csv)
-export_csv_btn.grid(row=10,column=5)
-
-# Back-to question overview:
-back_btn = Button(button_frame_answ, text="<-", command=back_to_qst)
-back_btn.grid(row=10,column=6)
-
-
-
-
-# ------functions for Answer Tree----------
+# Fill answer tree with answers from current_question:
 def fill_answer_tree(current_question):
     for item in answ_tree.get_children():
         answ_tree.delete(item)
@@ -350,6 +250,7 @@ def fill_answer_tree(current_question):
                                 answ.new_grade,
                                 answ.grade))
 
+# Show Data from selected answer:
 def selectItem_answ(event):
     curItem = answ_tree.focus()
     student_id = answ_tree.item(curItem)["values"][0]
@@ -364,72 +265,7 @@ def selectItem_answ(event):
     if curr_student.new_grade is None:
         grade_disp.configure(text="")
 
-
-#------Answer Tree-------------
-answ_tree = ttk.Treeview(panel_1)
-answ_tree["columns"] = ("Student-ID","Answer", "Grade", "Mohler_Grade")
-
-# Formate columns:
-answ_tree.column("#0", width=0, stretch=NO)
-answ_tree.column("Student-ID", anchor=W,width=10)
-answ_tree.column("Answer", anchor=W,width=300)
-answ_tree.column("Grade",anchor=W,width=10)
-answ_tree.column("Mohler_Grade",anchor=W,width=10)
-
-# Create headings:
-answ_tree.heading("#0",text="")
-answ_tree.heading("Student-ID", text="Student-ID", anchor=W)
-answ_tree.heading("Answer",text="Answer",anchor=W)
-answ_tree.heading("Grade", text="Grade", anchor=W)
-answ_tree.heading("Mohler_Grade", text="Mohler-Grade", anchor=W)
-
-
-# on left mouse-button: select item
-answ_tree.bind('<ButtonRelease-1>', selectItem_answ)
-
-
-#---------RATE CONSTRAINTS-----------------------------
-
-rate_const_frame = Frame(panel_1)
-
-# Question - Text
-rcfrm_question_lab = ttk.Label(rate_const_frame, text="Question: ")
-rcfrm_question_lab.grid(row=1,column=1,sticky=W)
-rcfrm_question_disp = ttk.Label(rate_const_frame, text="")
-rcfrm_question_disp.grid(row=1,column=2,sticky=W)
-
-# Unrated constraints counter:
-const_remain_lab = ttk.Label(rate_const_frame, text="Unrated Constraints: ")
-const_remain_lab.grid(row=2,column=1,sticky=W)
-const_remain_disp = ttk.Label(rate_const_frame, text="")
-const_remain_disp.grid(row=2,column=2,sticky=W)
-
-# Example answer:
-# Label "Example: "
-exmple_answ_lab = ttk.Label(rate_const_frame, text="Example: ")
-exmple_answ_lab.grid(row=3,column=1,sticky=W)
-
-# Frame for Text field:
-example_answ_frm = Frame(rate_const_frame,height=100,width=170)
-example_answ_frm.grid(row=3,column=2,sticky=W)
-example_answ_frm.grid_propagate(False)
-
-# Text field for example answer:
-exmple_txt_height = 5
-exmple_txt_width = 70
-example_answ_txt = Text(example_answ_frm, height=exmple_txt_height,
-                        width=exmple_txt_width, wrap ="word")
-example_answ_txt.pack(side=LEFT)
-example_answ_txt.configure(state=DISABLED)
-
-# Constraint explanation:
-constr_explanation = ttk.Label(rate_const_frame, text="")
-constr_explanation.grid(row=4,column=2,sticky=W)
-
-
-
-# Rating Buttons:---------
-# button functions:
+# Rate importance of current constraint:
 def rate_importance(yesno):
     global curr_rated_constraint
     if yesno == "yes":
@@ -446,58 +282,7 @@ def rate_imp_yes():
 def rate_imp_no():
     rate_importance("no")
 
-# Important-Yes Button
-imp_yes_btn = Button(rate_const_frame, text="Important", command=rate_imp_yes)
-imp_yes_btn.grid(row=10,column=1)
-
-# Important - No Button
-imp_no_btn = Button(rate_const_frame, text="Not important", command=rate_imp_no)
-imp_no_btn.grid(row=10,column=2)
-
-
-
-
-
-#----------- Grade Answers------------------------------
-grading_frame = Frame(panel_1)
-
-# Question - Text
-grading_qst_lab = ttk.Label(grading_frame, text="Question: ")
-grading_qst_lab.grid(row=1,column=1,sticky=W)
-grading_qst_disp = ttk.Label(grading_frame, text="")
-grading_qst_disp.grid(row=1,column=2,sticky=W)
-
-# Student-Answer
-grading_answ_lab = ttk.Label(grading_frame, text="Answer: ")
-grading_answ_lab.grid(row=2,column=1,sticky=W)
-
-# Frame for Text field:
-grading_answ_frm = Frame(grading_frame,height=100,width=170)
-grading_answ_frm.grid(row=2,column=2,sticky=W)
-grading_answ_frm.grid_propagate(False)
-
-# Text field for answer to grade:
-grading_txt_height = 5
-grading_txt_width = 70
-grading_answ_txt = Text(grading_answ_frm, height=grading_txt_height,
-                        width=grading_txt_width, wrap ="word")
-grading_answ_txt.pack(side=LEFT)
-grading_answ_txt.configure(state=DISABLED)
-
-# Number of important constraints (X from ALL):
-grading_imp_const_lab = ttk.Label(grading_frame, text="Important Constraints: ")
-grading_imp_const_lab.grid(row=3,column=1,sticky=W)
-grading_imp_const_disp = ttk.Label(grading_frame, text="")
-grading_imp_const_disp.grid(row=3,column=2,sticky=W)
-
-# Entry field: Grade
-grading_box = Entry(grading_frame)
-grading_box.grid(row=4,column=1)
-
-
-global curr_grading_answer
-curr_grading_answer = ""
-
+# All important constraints of the current question:
 def curr_qst_imp_constr():
     global current_question
     important_constr = []
@@ -506,6 +291,7 @@ def curr_qst_imp_constr():
             important_constr.append(constr)
     return important_constr
 
+# The important constraints that are fulfilled by the current answer:
 def curr_answ_imp_constr():
     global current_question
     global curr_grading_answer
@@ -520,6 +306,7 @@ def curr_answ_imp_constr():
                 important_answ_constr.append(constr)
     return important_answ_constr
 
+# Answer grading view:
 def grading():
     global current_question
     global current_frames_p1
@@ -563,6 +350,7 @@ def grading():
         imp_answ_constr = len(curr_answ_imp_constr())
         grading_imp_const_disp.configure(text= str(imp_answ_constr) + " from " + str(imp_constr))
 
+# grade the current answer:
 def grade_curr_answ(a=None):
     global curr_grading_answer
     grade = grading_box.get()
@@ -571,21 +359,276 @@ def grade_curr_answ(a=None):
     grading()
 
 
-# "grade" button
-add_record = Button(grading_frame, text="grade", command=grade_curr_answ)
-add_record.grid(row=4,column=2, sticky=W)
-root.bind("<Return>", grade_curr_answ)
 
-# Grade Answers button:
-grade_answ_btn = Button(button_frame_answ, text="Grade Answers", command=grading)
-grade_answ_btn.grid(row=10,column=4)
+
+##################################### FRAMES ##################################
+
+# --------------------------MAIN--------------------------------
+# Side-Bar:
+side_frame = Frame(root, width=300)
+side_frame.pack(side="left",anchor=W, fill=Y)
+# Main Window:
+main_frame = Frame(root)
+main_frame.pack(expand=True,fill="both")
+# Panel-Window for main_frame:
+panel_1 = PanedWindow(main_frame,bd=1,orient=VERTICAL, bg="black")
+panel_1.pack(fill=BOTH,expand=1)
+
+# ----------------SIDE BAR-------------------------------
+space_left = ttk.Label(side_frame, text="")
+space_left.grid(row=1,column=1)
+space_right = ttk.Label(side_frame, text="")
+space_right.grid(row=1,column=3)
+
+# -----------------------QUESTION OVERVIEW----------------------------
+# Display-Frame for displaying data about the selected item:
+display_frame = Frame(panel_1)
+
+# -----------------------DETAIL VIEW---------------------------------
+display_frame_answ = Frame(panel_1)
+button_frame_answ = Frame(panel_1)
+
+# -----------------------RATE CONSTRAINTS VIEW-----------------------
+rate_const_frame = Frame(panel_1)
+# Frame for Example answer text-field:
+example_answ_frm = Frame(rate_const_frame,height=100,width=170)
+example_answ_frm.grid(row=3,column=2,sticky=W)
+example_answ_frm.grid_propagate(False)
+
+
+# ----------------------- GRADE ANSWER VIEW-----------------------
+grading_frame = Frame(panel_1)
+# Frame for Text field:
+grading_answ_frm = Frame(grading_frame,height=100,width=170)
+grading_answ_frm.grid(row=2,column=2,sticky=W)
+grading_answ_frm.grid_propagate(False)
+
+
+
+
+################################ TEXT & BUTTONS ###############################
+
+# -----------------------SIDE BAR-------------------------------------
+# BUTTON: Import Mohler2009 raw question:
+import_btn = Button(side_frame, text="Import", command=import_file_mohler_txt)
+import_btn.grid(row=3, column=2)
 
 # Side Panel: Menu button
 main = Button(side_frame, text="Main_view", command=back_to_qst)
 main.grid(row=2, column=2)
 
 
+# -----------------------QUESTION OVERVIEW----------------------------
+# TEXT: Question - Text:
+question_label = ttk.Label(display_frame, text="Question: ")
+question_label.grid(row=1,column=1,sticky=W)
+question_display = ttk.Label(display_frame, text="")
+question_display.grid(row=1,column=2,sticky=W)
+
+# TEXT: Number of Student answers:
+number_std_answ_label = ttk.Label(display_frame, text="Student answers: ")
+number_std_answ_label.grid(row=2,column=1,sticky=W)
+number_std_answ_display = ttk.Label(display_frame, text="")
+number_std_answ_display.grid(row=2,column=2,sticky=W)
+
+# TEXT: Constraints rated "x from all":
+cons_label = ttk.Label(display_frame, text="Constraints rated: ")
+cons_label.grid(row=3, column=1, sticky=W)
+cons_display = ttk.Label(display_frame, text="", foreground="")
+cons_display.grid(row=3, column=2, sticky=W)
+
+# TEXT: Answers graded "y from all":
+answ_graded_label = ttk.Label(display_frame, text="Answers graded: ")
+answ_graded_label.grid(row=4, column=1, sticky=W)
+answ_graded_display = ttk.Label(display_frame, text="", foreground="")
+answ_graded_display.grid(row=4, column=2, sticky=W)
+
+# BUTTON: Remove selected question
+remove_selected = Button(display_frame, text="Remove", command=remove_selected)
+remove_selected.grid(row=10,column=1, sticky=W)
+
+
+# -----------------------DETAIL VIEW-------------------------------
+# Question - Text:
+qst_lab_answ = ttk.Label(display_frame_answ, text="Question: ")
+qst_lab_answ.grid(row=1,column=1,sticky=W)
+qst_disp_answ = ttk.Label(display_frame_answ, text="")
+qst_disp_answ.grid(row=1,column=2,sticky=W)
+
+# Student-ID:
+stud_id_label = ttk.Label(display_frame_answ, text="Student-ID: ")
+stud_id_label.grid(row=2,column=1,sticky=W)
+stud_id_disp = ttk.Label(display_frame_answ, text="")
+stud_id_disp.grid(row=2,column=2,sticky=W)
+
+# Student-Answ:
+stud_answ_lab = ttk.Label(display_frame_answ, text="Student-Answer: ")
+stud_answ_lab.grid(row=3,column=1,sticky=W)
+stud_answ_disp = ttk.Label(display_frame_answ, text="")
+stud_answ_disp.grid(row=3,column=2,sticky=W)
+
+#Grade:
+grade_label = ttk.Label(display_frame_answ, text="Grade: ")
+grade_label.grid(row=4,column=1,sticky=W)
+grade_disp = ttk.Label(display_frame_answ, text="")
+grade_disp.grid(row=4,column=2,sticky=W)
+
+# BUTTON: Export Event-log
+export_event_log = Button(button_frame_answ, text="Export Event-log",
+                          command=export_event_log_btn)
+export_event_log.grid(row=10,column=1)
+
+# BUTTON: Import DECLARE
+import_declare = Button(button_frame_answ, text="Import DECLARE",
+                        command=import_declare_btn)
+import_declare.grid(row=10,column=2)
+
+# BUTTON: Rate Constraints
+rate_const_btn = Button(button_frame_answ, text="Rate Constraints",
+                        command=rate_const)
+rate_const_btn.grid(row=10,column=3)
+
+# BUTTON: Export to .csv
+export_csv_btn = Button(button_frame_answ, text="Export .csv",
+                        command=export_csv)
+export_csv_btn.grid(row=10,column=5)
+
+# BUTTON: Back-to question overview
+back_btn = Button(button_frame_answ, text="<-", command=back_to_qst)
+back_btn.grid(row=10,column=6)
+
+
+#----------------------------RATE CONSTRAINTS--------------------------------
+# TEXT: Question-text
+rcfrm_question_lab = ttk.Label(rate_const_frame, text="Question: ")
+rcfrm_question_lab.grid(row=1,column=1,sticky=W)
+rcfrm_question_disp = ttk.Label(rate_const_frame, text="")
+rcfrm_question_disp.grid(row=1,column=2,sticky=W)
+
+# TEXT: Unrated constraints counter
+const_remain_lab = ttk.Label(rate_const_frame, text="Unrated Constraints: ")
+const_remain_lab.grid(row=2,column=1,sticky=W)
+const_remain_disp = ttk.Label(rate_const_frame, text="")
+const_remain_disp.grid(row=2,column=2,sticky=W)
+
+# TEXT: "Example: "
+exmple_answ_lab = ttk.Label(rate_const_frame, text="Example: ")
+exmple_answ_lab.grid(row=3,column=1,sticky=W)
+
+# TEXT: field for example answer:
+exmple_txt_height = 5
+exmple_txt_width = 70
+example_answ_txt = Text(example_answ_frm, height=exmple_txt_height,
+                        width=exmple_txt_width, wrap ="word")
+example_answ_txt.pack(side=LEFT)
+example_answ_txt.configure(state=DISABLED)
+
+# TEXT: Constraint explanation:
+constr_explanation = ttk.Label(rate_const_frame, text="")
+constr_explanation.grid(row=4,column=2,sticky=W)
+
+# BUTTON: Important-Yes
+imp_yes_btn = Button(rate_const_frame, text="Important", command=rate_imp_yes)
+imp_yes_btn.grid(row=10,column=1)
+# BUTTON: Important - No
+imp_no_btn = Button(rate_const_frame, text="Not important", command=rate_imp_no)
+imp_no_btn.grid(row=10,column=2)
+
+
+#---------------------------- GRADE ANSWERS --------------------------------
+# TEXT: Question-text
+grading_qst_lab = ttk.Label(grading_frame, text="Question: ")
+grading_qst_lab.grid(row=1,column=1,sticky=W)
+grading_qst_disp = ttk.Label(grading_frame, text="")
+grading_qst_disp.grid(row=1,column=2,sticky=W)
+
+# TEXT: Student-Answer
+grading_answ_lab = ttk.Label(grading_frame, text="Answer: ")
+grading_answ_lab.grid(row=2,column=1,sticky=W)
+
+# TEXT: Text field for answer to grade
+grading_txt_height = 5
+grading_txt_width = 70
+grading_answ_txt = Text(grading_answ_frm, height=grading_txt_height,
+                        width=grading_txt_width, wrap ="word")
+grading_answ_txt.pack(side=LEFT)
+grading_answ_txt.configure(state=DISABLED)
+
+# TEXT: Number of important constraints (X from ALL)
+grading_imp_const_lab = ttk.Label(grading_frame, text="Important Constraints: ")
+grading_imp_const_lab.grid(row=3,column=1,sticky=W)
+grading_imp_const_disp = ttk.Label(grading_frame, text="")
+grading_imp_const_disp.grid(row=3,column=2,sticky=W)
+
+# ENTRY: Entry field for grade
+grading_box = Entry(grading_frame)
+grading_box.grid(row=4,column=1)
+
+# BUTTON: "grade"
+add_record = Button(grading_frame, text="grade", command=grade_curr_answ)
+add_record.grid(row=4,column=2, sticky=W)
+root.bind("<Return>", grade_curr_answ)
+
+# BUTTON: Grade Answers
+grade_answ_btn = Button(button_frame_answ, text="Grade Answers", command=grading)
+grade_answ_btn.grid(row=10,column=4)
 
 
 
+
+#################################### TREES ###################################
+
+# ------------------- QUESTION-Tree-----------------------------------
+question_tree = ttk.Treeview(panel_1)
+question_tree["columns"] = ("Q_object","Question", "file")
+
+# Formate columns:
+question_tree.column("#0", width=0, stretch=NO)
+question_tree.column("Q_object", anchor=W,width=10)
+question_tree.column("Question", anchor=W,width=300)
+question_tree.column("file",anchor=W,width=300)
+
+# Create headings:
+question_tree.heading("#0",text="")
+question_tree.heading("Q_object", text="Q_object", anchor=W)
+question_tree.heading("Question",text="Question",anchor=W)
+question_tree.heading("file", text="file", anchor=W)
+
+# Columns to display:
+question_tree["displaycolumns"] = ("Question", "file")
+
+# BIND: on left mouse-button: select item
+question_tree.bind('<ButtonRelease-1>', selectItem_qst)
+
+# BIND: open question-detail-view on double click:
+question_tree.bind("<Double-1>", on_double_click_qst)
+
+
+# ------------------- ANSWER-Tree-----------------------------------
+answ_tree = ttk.Treeview(panel_1)
+answ_tree["columns"] = ("Student-ID","Answer", "Grade", "Mohler_Grade")
+
+# Formate columns:
+answ_tree.column("#0", width=0, stretch=NO)
+answ_tree.column("Student-ID", anchor=W,width=10)
+answ_tree.column("Answer", anchor=W,width=300)
+answ_tree.column("Grade",anchor=W,width=10)
+answ_tree.column("Mohler_Grade",anchor=W,width=10)
+
+# Create headings:
+answ_tree.heading("#0",text="")
+answ_tree.heading("Student-ID", text="Student-ID", anchor=W)
+answ_tree.heading("Answer",text="Answer",anchor=W)
+answ_tree.heading("Grade", text="Grade", anchor=W)
+answ_tree.heading("Mohler_Grade", text="Mohler-Grade", anchor=W)
+
+# BIND: on left mouse-button: select item
+answ_tree.bind('<ButtonRelease-1>', selectItem_answ)
+
+
+
+
+
+
+###############################################################################
 root.mainloop()
