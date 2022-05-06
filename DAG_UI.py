@@ -4,6 +4,7 @@ from tkinter import ttk
 from python_files.classes import *
 from python_files.import_export_functions import *
 import sys
+import re
 
 root = Tk()
 root.title("Answer Grader")
@@ -24,7 +25,9 @@ def import_file_mohler_txt():
     for new_question in mohler_imports:
         imported_questions.append(new_question[0])
         question_tree.insert(parent="", index="end", iid=count, text="",
-                             values=(new_question[0].q_id,new_question[0].q_text, new_question[1]))
+                             values=(new_question[0].q_id,
+                                    new_question[0].q_text,
+                                    new_question[1]))
         new_question[0].pre_process_question()
         new_question[0].generate_event_log()
         count +=1
@@ -125,7 +128,8 @@ def selectItem_qst(a):
             if cons.essential_for_rightness is not None:
                 rated_cons += 1
         max_cons = len(question.event_log.mined_constraints)
-        cons_display.configure(text = str(rated_cons) + " from " + str(max_cons))
+        cons_display.configure(text = str(rated_cons) + " from " + str(max_cons),
+                               foreground="")
 
     if rated_cons == 0:
         answ_graded_display.configure(text = "Please rate all Constraints", foreground="red")
@@ -135,7 +139,8 @@ def selectItem_qst(a):
             if answ.new_grade is not None:
                 graded_answ += 1
         max_answ = len(question.student_answers)
-        answ_graded_display.configure(text = str(graded_answ) + " from " + str(max_answ))
+        answ_graded_display.configure(text = str(graded_answ) + " from " + str(max_answ),
+                               foreground="")
 
 # Question-Tree:---------------------------------------------------------
 
@@ -240,6 +245,16 @@ def import_declare_btn():
     event_log.import_mined_declare(original_file_name=orig_file)
     current_question.check_constraints()
 
+def highlight(field, word, whole_text, color):
+    starts = []
+    ends = []
+    for m in re.finditer(word, whole_text):
+        starts.append("1." + str(m.start()))
+        ends.append("1." + str(m.start() + len(word)))
+    for i in range(len(starts)):
+        field.tag_add("here" + starts[i], starts[i], ends[i])
+        field.tag_config("here" + starts[i], background=color)
+
 global curr_rated_constraint
 curr_rated_constraint = ""
 
@@ -277,11 +292,24 @@ def rate_const():
             if curr_rated_constraint in answ.fulfilled_constraints:
                 if example_answ == "":
                     example_answ = answ.answer_text
-        # Display example answer and constraint:
-        exmple_answ_disp.configure(text=example_answ)
+        # Display example answer:
+        example_answ_txt.configure(state=NORMAL)
+        example_answ_txt.delete("1.0", END)
+        example_answ_txt.insert(INSERT,example_answ)
+        highlight(field = example_answ_txt, word = act_a,
+                  whole_text = example_answ, color = "yellow")
+        highlight(field = example_answ_txt, word = act_b,
+                  whole_text = example_answ, color = "yellow")
+        example_answ_txt.configure(state=DISABLED)
+        # Display constraint:
         constr_explanation.configure(text= const_type + "[" + act_a + "," + act_b + "]")
 
 
+
+#current_question
+
+def export_csv():
+    export_data_const_incl_a_b(question=current_question)
 
 #-----BUttons:
 # Export Event-log button
@@ -299,10 +327,14 @@ rate_const_btn = Button(button_frame_answ, text="Rate Constraints",
                         command=rate_const)
 rate_const_btn.grid(row=10,column=3)
 
+#Export to .csv:
+export_csv_btn = Button(button_frame_answ, text="Export .csv",
+                        command=export_csv)
+export_csv_btn.grid(row=10,column=5)
 
 # Back-to question overview:
 back_btn = Button(button_frame_answ, text="<-", command=back_to_qst)
-back_btn.grid(row=10,column=5)
+back_btn.grid(row=10,column=6)
 
 
 
@@ -313,7 +345,10 @@ def fill_answer_tree(current_question):
         answ_tree.delete(item)
     for answ in current_question.student_answers:
         answ_tree.insert(parent="", index="end", text="",
-                        values=(answ.student_id, answ.answer_text, answ.new_grade))
+                        values=(answ.student_id,
+                                answ.answer_text,
+                                answ.new_grade,
+                                answ.grade))
 
 def selectItem_answ(event):
     curItem = answ_tree.focus()
@@ -332,18 +367,22 @@ def selectItem_answ(event):
 
 #------Answer Tree-------------
 answ_tree = ttk.Treeview(panel_1)
-answ_tree["columns"] = ("Student-ID","Answer", "Grade")
+answ_tree["columns"] = ("Student-ID","Answer", "Grade", "Mohler_Grade")
 
 # Formate columns:
 answ_tree.column("#0", width=0, stretch=NO)
 answ_tree.column("Student-ID", anchor=W,width=10)
 answ_tree.column("Answer", anchor=W,width=300)
 answ_tree.column("Grade",anchor=W,width=10)
+answ_tree.column("Mohler_Grade",anchor=W,width=10)
+
 # Create headings:
 answ_tree.heading("#0",text="")
 answ_tree.heading("Student-ID", text="Student-ID", anchor=W)
 answ_tree.heading("Answer",text="Answer",anchor=W)
 answ_tree.heading("Grade", text="Grade", anchor=W)
+answ_tree.heading("Mohler_Grade", text="Mohler-Grade", anchor=W)
+
 
 # on left mouse-button: select item
 answ_tree.bind('<ButtonRelease-1>', selectItem_answ)
@@ -366,10 +405,22 @@ const_remain_disp = ttk.Label(rate_const_frame, text="")
 const_remain_disp.grid(row=2,column=2,sticky=W)
 
 # Example answer:
+# Label "Example: "
 exmple_answ_lab = ttk.Label(rate_const_frame, text="Example: ")
 exmple_answ_lab.grid(row=3,column=1,sticky=W)
-exmple_answ_disp = ttk.Label(rate_const_frame, text="")
-exmple_answ_disp.grid(row=3,column=2,sticky=W)
+
+# Frame for Text field:
+example_answ_frm = Frame(rate_const_frame,height=100,width=170)
+example_answ_frm.grid(row=3,column=2,sticky=W)
+example_answ_frm.grid_propagate(False)
+
+# Text field for example answer:
+exmple_txt_height = 5
+exmple_txt_width = 70
+example_answ_txt = Text(example_answ_frm, height=exmple_txt_height,
+                        width=exmple_txt_width, wrap ="word")
+example_answ_txt.pack(side=LEFT)
+example_answ_txt.configure(state=DISABLED)
 
 # Constraint explanation:
 constr_explanation = ttk.Label(rate_const_frame, text="")
@@ -407,11 +458,6 @@ imp_no_btn.grid(row=10,column=2)
 
 
 
-
-
-
-
-
 #----------- Grade Answers------------------------------
 grading_frame = Frame(panel_1)
 
@@ -424,15 +470,25 @@ grading_qst_disp.grid(row=1,column=2,sticky=W)
 # Student-Answer
 grading_answ_lab = ttk.Label(grading_frame, text="Answer: ")
 grading_answ_lab.grid(row=2,column=1,sticky=W)
-grading_answ_disp = ttk.Label(grading_frame, text="")
-grading_answ_disp.grid(row=2,column=2,sticky=W)
+
+# Frame for Text field:
+grading_answ_frm = Frame(grading_frame,height=100,width=170)
+grading_answ_frm.grid(row=2,column=2,sticky=W)
+grading_answ_frm.grid_propagate(False)
+
+# Text field for answer to grade:
+grading_txt_height = 5
+grading_txt_width = 70
+grading_answ_txt = Text(grading_answ_frm, height=grading_txt_height,
+                        width=grading_txt_width, wrap ="word")
+grading_answ_txt.pack(side=LEFT)
+grading_answ_txt.configure(state=DISABLED)
 
 # Number of important constraints (X from ALL):
 grading_imp_const_lab = ttk.Label(grading_frame, text="Important Constraints: ")
 grading_imp_const_lab.grid(row=3,column=1,sticky=W)
 grading_imp_const_disp = ttk.Label(grading_frame, text="")
 grading_imp_const_disp.grid(row=3,column=2,sticky=W)
-
 
 # Entry field: Grade
 grading_box = Entry(grading_frame)
@@ -441,8 +497,6 @@ grading_box.grid(row=4,column=1)
 
 global curr_grading_answer
 curr_grading_answer = ""
-
-
 
 def curr_qst_imp_constr():
     global current_question
@@ -458,8 +512,12 @@ def curr_answ_imp_constr():
     all_constr = curr_qst_imp_constr()
     important_answ_constr = []
     for constr in curr_grading_answer.fulfilled_constraints:
-        if constr in all_constr:
-            important_answ_constr.append(constr)
+        proc_txt = curr_grading_answer.pre_processed_answer_text
+        act_a = constr.activity_a.activity_text
+        act_b = constr.activity_b.activity_text
+        if act_a in proc_txt and act_b in proc_txt:
+            if constr in all_constr:
+                important_answ_constr.append(constr)
     return important_answ_constr
 
 def grading():
@@ -484,7 +542,23 @@ def grading():
         current_frames_p1 = [grading_frame]
         curr_grading_answer = ungraded_answ[0]
         grading_qst_disp.configure(text=current_question.q_text)
-        grading_answ_disp.configure(text=curr_grading_answer.answer_text)
+        # Display Student-Answer:
+        answ_txt = curr_grading_answer.answer_text
+        imp_constr = curr_answ_imp_constr()
+
+        grading_answ_txt.configure(state=NORMAL)
+        grading_answ_txt.delete("1.0", END)
+        grading_answ_txt.insert(INSERT,answ_txt)
+
+        for const in imp_constr:
+            act_a = const.activity_a.activity_text
+            act_b = const.activity_b.activity_text
+            highlight(field = grading_answ_txt, word = act_a,
+                      whole_text = answ_txt, color = "green")
+            highlight(field = grading_answ_txt, word = act_b,
+                      whole_text = answ_txt, color = "green")
+        grading_answ_txt.configure(state=DISABLED)
+
         imp_constr = len(curr_qst_imp_constr())
         imp_answ_constr = len(curr_answ_imp_constr())
         grading_imp_const_disp.configure(text= str(imp_answ_constr) + " from " + str(imp_constr))
@@ -501,7 +575,6 @@ def grade_curr_answ(a=None):
 add_record = Button(grading_frame, text="grade", command=grade_curr_answ)
 add_record.grid(row=4,column=2, sticky=W)
 root.bind("<Return>", grade_curr_answ)
-
 
 # Grade Answers button:
 grade_answ_btn = Button(button_frame_answ, text="Grade Answers", command=grading)

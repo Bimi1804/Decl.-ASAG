@@ -70,7 +70,7 @@ def import_mohler_txt(question_id=0):
             if "[" in line or "]" in line:
                 answer_list.append(line)
         # Create the Question-object:
-        new_question = Question(q_id = "Q." + str(question_id),
+        new_question = Question(q_id = "Q" + str(question_id),
                                 q_text=question,
                                 original_file_name = original_file_name)
         question_id += 1
@@ -125,20 +125,20 @@ def export_data_as_csv(question=None, export_file=None, original_file_name=""):
                         initialfile=question.q_id + "_analysis")
     if export_file != "":
         # Define the header for the .csv
-        header = ["Student_id","grade","number_of_constraints"]
+        header = ["Student_id","new_grade","mohler_grade","number_of_constraints"]
         with open(export_file,"w",newline="") as file:
             writer=csv.writer(file)
             writer.writerow(header) # write header into file
             # write rows with sutdent_id, grade, number of fulfilled constraints
             for answ in question.student_answers:
-                writer.writerow([answ.student_id,
+                writer.writerow([answ.student_id,answ.new_grade,
                                 answ.grade,
                                 len(answ.fulfilled_constraints)])
     return export_file
 
 
-def export_data_const_incl_a_b(question=None, export_file=None,
-                                original_file_name=""):
+def export_data_const_incl_a_b(question=None,export_file=None):
+    original_file_name = question.original_file_name
     # Type-checking of question
     if question is None or type(question) is not Question:
         print("Please enter a question-object")
@@ -152,7 +152,7 @@ def export_data_const_incl_a_b(question=None, export_file=None,
                         initialfile=question.q_id + "_analysis")
     if export_file != "":
         # Define the header for the .csv
-        header = ["Student_id","grade","cons_incl_a_b"]
+        header = ["Student_id","new_grade","mohler_grade","cons_incl_a_b"]
         with open(export_file,"w",newline="") as file:
             writer=csv.writer(file)
             writer.writerow(header) # write header into file
@@ -166,7 +166,7 @@ def export_data_const_incl_a_b(question=None, export_file=None,
                     cons_b = cons.activity_b.activity_text
                     if  cons_a in pro_answ and cons_b in pro_answ:
                         cons_incl_a_b.append(cons)
-                writer.writerow([answ.student_id,
+                writer.writerow([answ.student_id,answ.new_grade,
                                 answ.grade,
                                 len(cons_incl_a_b)])
     return export_file
