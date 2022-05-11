@@ -24,6 +24,12 @@ can be graded.
 To support answer grading, the tool will highlight the important constraints that an 
 answer fulfills.
 
+NOTE: The tool defines a DECLARE-Constraint as fulfilled by an answer only if A and B
+exist in the answer. This is different from "standard" DECLARE-Constraints, were a 
+constraint would be also fulfilled, if both, A and B, do not exist.
+-> If one wants to change this, they would have to change the conformance_check()
+   method in the Constraint_type class in the classes.py file.
+
 
 
 

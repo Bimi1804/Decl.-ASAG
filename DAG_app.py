@@ -165,10 +165,11 @@ def rate_const():
         act_b = curr_rated_constraint.activity_b.activity_text
         const_type = curr_rated_constraint.constraint_type.constraint_type_name
         # Get an example answer for the constraint:
-        example_answ = ""
+        example_answ = "NO EXAMPLE ANSWER AVAILABLE!"
+        all_fulfilled_constr = []
         for answ in current_question.student_answers:
             if curr_rated_constraint in answ.fulfilled_constraints:
-                if example_answ == "":
+                if example_answ == "NO EXAMPLE ANSWER AVAILABLE!":
                     example_answ = answ.answer_text
         # Display example answer with highlights:
         example_answ_txt.configure(state=NORMAL)
@@ -267,7 +268,10 @@ def grading():
         # Display how many important constraints are fulfilled by the answer:
         imp_constr = len(curr_qst_imp_constr())
         imp_answ_constr = len(curr_answ_imp_constr())
-        grading_imp_const_disp.configure(text=str(imp_answ_constr)+" from "+str(imp_constr))
+        grading_imp_const_disp.configure(
+            text=str(imp_answ_constr) + " from " + str(imp_constr) + " (" +
+            str(imp_answ_constr/imp_constr*100) + "%)"
+            )
 
 # grade the current answer:
 def grade_curr_answ(event):

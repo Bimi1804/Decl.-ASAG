@@ -652,46 +652,49 @@ class Constraint_type:
         processed_answer = answer.pre_processed_answer_text # pre-processed text
                                                             # of the answer
         return_value = False
-        # Use the conformance check that belongs to the constraint-type
-        #Binary Positive Constraints:----
-        # X_Existence----
-        if self.constraint_type_name == "Co-Existence":
-            return_value = self.__co_existence_check(act_a,act_b,
-                                                     processed_answer)
-        if self.constraint_type_name == "Responded Existence":
-            return_value = self.__responded_existence_check(act_a,act_b,
-                                                           processed_answer)
+        if act_a in processed_answer and act_b in processed_answer:
+            # Use the conformance check that belongs to the constraint-type
+            #Binary Positive Constraints:----
+            # X_Existence----
+            if self.constraint_type_name == "Co-Existence":
+                return_value = self.__co_existence_check(act_a,act_b,
+                                                         processed_answer)
+            if self.constraint_type_name == "Responded Existence":
+                return_value = self.__responded_existence_check(act_a,act_b,
+                                                               processed_answer)
 
-        # Simple_X----
-        if self.constraint_type_name == "Precedence":
-            return_value = self.__precedence_check(act_a,act_b,processed_answer)
-        if self.constraint_type_name == "Response":
-            return_value = self.__response_check(act_a,act_b,processed_answer)
-        if self.constraint_type_name == "Succession":
-            return_value = self.__succession_check(act_a,act_b,processed_answer)
+            # Simple_X----
+            if self.constraint_type_name == "Precedence":
+                return_value = self.__precedence_check(act_a,act_b,processed_answer)
+            if self.constraint_type_name == "Response":
+                return_value = self.__response_check(act_a,act_b,processed_answer)
+            if self.constraint_type_name == "Succession":
+                return_value = self.__succession_check(act_a,act_b,processed_answer)
 
-        # Alterate_X----
-        if self.constraint_type_name == "Alternate Precedence":
-            return_value = self.__alternate_precedence_check(act_a,act_b,
-                                                             processed_answer)
-        if self.constraint_type_name == "Alternate Response":
-            return_value = self.__alternate_response_check(act_a,act_b,
-                                                           processed_answer)
-        if self.constraint_type_name == "Alternate Succession":
-            return_value = self.__alternate_succession_check(act_a,act_b,
-                                                           processed_answer)
+            # Alterate_X----
+            if self.constraint_type_name == "Alternate Precedence":
+                return_value = self.__alternate_precedence_check(act_a,act_b,
+                                                                 processed_answer)
+            if self.constraint_type_name == "Alternate Response":
+                return_value = self.__alternate_response_check(act_a,act_b,
+                                                               processed_answer)
+            if self.constraint_type_name == "Alternate Succession":
+                return_value = self.__alternate_succession_check(act_a,act_b,
+                                                               processed_answer)
 
-        # Chain_X----
-        if self.constraint_type_name == "Chain Precedence":
-            return_value = self.__chain_precedence_check(act_a,act_b,
-                                                           processed_answer)
-        if self.constraint_type_name == "Chain Response":
-            return_value = self.__chain_response_check(act_a,act_b,
-                                                           processed_answer)
-        if self.constraint_type_name == "Chain Succession":
-            return_value = self.__chain_succession_check(act_a,act_b,
-                                                           processed_answer)
+            # Chain_X----
+            if self.constraint_type_name == "Chain Precedence":
+                return_value = self.__chain_precedence_check(act_a,act_b,
+                                                               processed_answer)
+            if self.constraint_type_name == "Chain Response":
+                return_value = self.__chain_response_check(act_a,act_b,
+                                                               processed_answer)
+            if self.constraint_type_name == "Chain Succession":
+                return_value = self.__chain_succession_check(act_a,act_b,
+                                                               processed_answer)
+
         return return_value
+
 
     #Binary Positive Constraints:----
     # X_Existence----
